@@ -31,17 +31,17 @@ passport.serializeUser(configs.serialize);
 passport.deserializeUser(configs.deserialize);
 passport.use(new localStrategy(require("../strategies/local")));
 
-// serve static resource
-app.get("*", (req, res) => res.sendFile(path.join(__dirname, "index.html")));
+// session handling routes
+app.use("/sessions", require("../routers/sessions"));
 
 // registering route
 app.use("/register", require("../routers/register"));
 
-// session handling routes
-app.use("/sessions", require("../routers/sessions"));
-
 // api routes
 app.use("/api/:resource", require("../routers")(io));
+
+// serve static resource
+app.get("*", (req, res) => res.sendFile(path.join(__dirname, "index.html")));
 
 // web sockets
 io.on("connection", require("./sockets")(io));
