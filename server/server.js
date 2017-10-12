@@ -19,7 +19,7 @@ const mw = require("./middleware");
 // middleware
 app.use(session(configs.session));
 app.use(bodyParser.json());
-app.use(express.static("server/build"));
+app.use(express.static(path.join(__dirname, "server/build")));
 app.use(mw.mongooseConnect);
 app.use(passport.initialize());
 app.use(passport.session());
