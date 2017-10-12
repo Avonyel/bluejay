@@ -41,7 +41,9 @@ app.use("/register", require("../routers/register"));
 app.use("/api/:resource", require("../routers")(io));
 
 // serve static resource
-app.get("/*", (req, res) => res.sendFile(path.join(__dirname, "index.html")));
+app.get("/*", (req, res) =>
+	res.sendFile(path.join(__dirname, "build/index.html"))
+);
 
 // web sockets
 io.on("connection", require("./sockets")(io));
